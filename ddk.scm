@@ -1,0 +1,10 @@
+(set! COMMENT-FLAG #f)
+(libload "nat.scm")
+(libload "list.scm")
+(libload "pos.scm")
+(libload "int.scm")
+(libload "rat.scm")
+(set! COMMENT-FLAG #t)
+
+(add-alg "ddk" (list "DDConstr" "rat=>rat=>rat=>(rat=>rat=>rat yprod rat)=>(rat=>rat=>boole)=>ddk"))
+(add-totality "ddk")
