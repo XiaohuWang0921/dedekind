@@ -21,7 +21,7 @@
 (add-program-constant "OpenFor" (py "(rat=>rat=>rat yprod rat)=>(rat=>rat=>boole)=>rat=>rat=>boole"))
 (add-computation-rules
  "OpenFor opn loc a b"
- "a<b impb lft(opn a b)<rht(opn a b)andb[if(loc a b)(loc(lft(opn a b))(rht(opn a b)))(negb(loc(lft(opn a b)(rht(opn a b)))))]")
+ "a<b impb lft(opn a b)<rht(opn a b)andb[if(loc a b)(loc lft(opn a b)rht(opn a b))(negb(loc lft(opn a b)rht(opn a b)))]")
 
 (add-program-constant "DisjFor" (py "(rat=>rat=>boole)=>rat=>rat=>rat=>boole"))
 (add-computation-rules
