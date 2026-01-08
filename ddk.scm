@@ -16,7 +16,7 @@
 
 (add-program-constant "Inh" (py "(rat=>rat=>boole)=>rat=>rat=>rat=>boole"))
 (add-computation-rules
- "Inh locate a b c" "a<b andb b<c andb[if(locate a b)(negb(locate a c))(locate c b)]")
+ "Inh locate a b c" "a<b andb b<c andb[if(locate a c)(negb(locate a b))(locate b c)]")
 
 (add-program-constant "RndFor" (py "(rat=>rat=>rat yprod rat)=>(rat=>rat=>boole)=>rat=>rat=>boole"))
 (add-computation-rules
