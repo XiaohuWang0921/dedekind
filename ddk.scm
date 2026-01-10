@@ -11,6 +11,7 @@
 (add-eqp "ddk")
 (add-eqpnc "ddk")
 
+(add-var-name "x" "y" "z" (py "ddk"))
 (add-var-name "round" (py "rat=>rat=>rat yprod rat"))
 (add-var-name "locate" (py "rat=>rat=>boole"))
 
@@ -21,7 +22,7 @@
 (add-program-constant "RndFor" (py "(rat=>rat=>rat yprod rat)=>(rat=>rat=>boole)=>rat=>rat=>boole"))
 (add-computation-rules
  "RndFor round locate a b"
- "a<b impb lft(round a b)<rht(round a b)andb[if(locate a b)(locate lft(round a b)rht(round a b))(negb(locate lft(round a b)rht(round a b)))]")
+ "a<b impb a<lft(round a b)andb lft(round a b)<rht(round a b)andb rht(round a b)<b andb locate a b=locate lft(round a b)rht(round a b)")
 
 (add-program-constant "DisjFor" (py "(rat=>rat=>boole)=>rat=>rat=>rat=>boole"))
 (add-computation-rules
@@ -153,3 +154,6 @@
 (add-computation-rules "(DDConstr a b c round locate)rr" "c")
 (add-computation-rules "(DDConstr a b c round locate)rnd" "round")
 (add-computation-rules "(DDConstr a b c round locate)loc" "locate")
+
+(add-ids (list (list "Cut" (make-arity (py "ddk"))))
+	 (list "allnc a,b,c,round,locate(Inh locate a b c andd allnc a0,b0(RndFor round locate a0 b0)andd allnc a0,b0,c0(DisjFor locate a0 b0 c0))->Cut(DDConstr a b c round locate)"))
