@@ -156,4 +156,4 @@
 (add-computation-rules "(DDConstr a b c round locate)loc" "locate")
 
 (add-ids (list (list "Dedekind" (make-arity (py "ddk"))))
-	 (list "allnc a,b,c,round,locate(Inh locate a b c andd allnc a0,b0(RndFor round locate a0 b0)andd allnc a0,b0,c0(DisjFor locate a0 b0 c0))->Dedekind(DDConstr a b c round locate)" "DedekindIntro"))
+	 (list "Inh locate a b c andd allnc a0,b0(RndFor round locate a0 b0)andd allnc a0,b0,c0(DisjFor locate a0 b0 c0))->Dedekind(DDConstr a b c round locate)" "DedekindIntro"))
