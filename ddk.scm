@@ -156,4 +156,42 @@
 (add-computation-rules "(DDConstr a b c round locate)loc" "locate")
 
 (add-ids (list (list "Dedekind" (make-arity (py "ddk"))))
-	 (list "Inh locate a b c andd allnc a0,b0(RndFor round locate a0 b0)andd allnc a0,b0,c0(DisjFor locate a0 b0 c0))->Dedekind(DDConstr a b c round locate)" "DedekindIntro"))
+	 (list "Inh locate a b c andd allnc a0,b0(RndFor round locate a0 b0)andd allnc a0,b0,c0(DisjFor locate a0 b0 c0)->Dedekind(DDConstr a b c round locate)" "DedekindIntro"))
+
+;; Example: sqrt(2)
+(add-program-constant "PPSqrtTwo" (py "rat"))
+(add-program-constant "QQSqrtTwo" (py "rat"))
+(add-program-constant "RRSqrtTwo" (py "rat"))
+(add-program-constant "RndSqrtTwo" (py "rat=>rat=>rat yprod rat"))
+(add-program-constant "LocSqrtTwo" (py "rat=>rat=>boole"))
+
+;; 1 < sqrt(2)
+(add-computation-rules "PPSqrtTwo" "1")
+(add-computation-rules "QQSqrtTwo" "4/3")
+;; 2 > sqrt(2)
+(add-computation-rules "RRSqrtTwo" "2")
+(add-computation-rules
+ "RndSqrtTwo a b"
+ "[if(a<=0)[if(1<=b)(1/2 pair 1)(b/2 pair b)][if(a*a<=2)(a+(2-a*a)/(6*a) pair a+(2-a*a)/(3*a))(a-(a*a-2)/(2*a) pair a-(a*a-2)/(4*a))]]")
+;; If b^2>2, then b>sqrt(2); otherwise a<b<sqrt(2)
+(add-computation-rules
+ "LocSqrtTwo a b"
+ "2<=b*b")
+
+(add-program-constant "DDKSqrtTwo" (py "ddk"))
+(add-computation-rules "DDKSqrtTwo" "DDConstr PPSqrtTwo QQSqrtTwo RRSqrtTwo RndSqrtTwo LocSqrtTwo")
+
+(set-goal "Dedekind DDKSqrtTwo")
+(intro 0)
+(intro 0)
+;; Inhabitedness
+(use "Truth")
+(intro 0)
+;; Roundedness
+(assume "a" "b")
+(simp "RndFor0CompRule")
+(cases (pt "a<b"))
+;; a<b
+(simp "ImpConst1CompRule")
+(assume "a<b")
+;; Rest TODO
