@@ -1,3 +1,4 @@
+
 (set! COMMENT-FLAG #f)
 (libload "nat.scm")
 (libload "list.scm")
@@ -172,11 +173,11 @@
 (add-computation-rules "RRSqrtTwo" "2")
 (add-computation-rules
  "RndSqrtTwo a b"
- "[if(a<0)[if(1<b)(1/2 pair 1)(b/2 pair b)][if(a*a<2)(a+(2-a*a)/(6*a) pair a+(2-a*a)/(3*a))(a-(a*a-2)/(2*a) pair a-(a*a-2)/(4*a))]]")
+ "[if(0<a andb 2<a*a orb b<0 orb b*b<2)((2*a+b)/3 pair(a+2*b)/3)((b*b+2)/(2*b)pair(3*b*b+2)/(4*b))]")
 ;; If b^2>2, then b>sqrt(2); otherwise a<b<sqrt(2)
 (add-computation-rules
  "LocSqrtTwo a b"
- "2<b*b")
+ "0<b andb 2<b*b")
 
 (add-program-constant "DDKSqrtTwo" (py "ddk"))
 (add-computation-rules "DDKSqrtTwo" "DDConstr PPSqrtTwo QQSqrtTwo RRSqrtTwo RndSqrtTwo LocSqrtTwo")
@@ -193,10 +194,4 @@
 (cases (pt "a<b"))
 ;; a<b
 (assume "a<b")
-(ng)
-(cases (pt "a<0"))
-;; a<0
-(ng)
-(cases (pt "1<b"))
-;; 1<b
 (ng)
